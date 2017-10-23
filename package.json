@@ -1,0 +1,31 @@
+{
+  "name": "jsdeepclone",
+  "version": "1.0.0",
+  "description": "Library for handling deep clone and merge in javascript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./build.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mathatan/JSDeepClone.git"
+  },
+  "keywords": [
+    "merge",
+    "clone",
+    "deep"
+  ],
+  "author": "Markus Haverinen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mathatan/JSDeepClone/issues"
+  },
+  "homepage": "https://github.com/mathatan/JSDeepClone#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "browserify": "^14.5.0",
+    "uglify-js": "^3.1.5"
+  }
+}
