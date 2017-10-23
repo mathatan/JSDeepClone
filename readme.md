@@ -1,4 +1,5 @@
-#Deep clone & merge
+JS deep clone & merge
+=====================
 
 JSDeepClone is a simple library for deep cloning and merging JS variables. 
 
@@ -14,7 +15,8 @@ Hope you have some use for this little lib. Cheers!
 
 
 
-##Example for merge
+Example for merge
+-----------------
 
 Usage is fairly simple. Either use AMD or CommonJS to include the library and use the provided methods.
 
@@ -39,7 +41,7 @@ const foobar = deep.merge(foo, bar);
 
 ```
 
-###Expected results:
+Expected results:
 
 ```
 foobar === {
@@ -52,7 +54,8 @@ foobar === {
 ```
 
 
-##Example for clone 
+Example for clone 
+-----------------
 
 Usage is fairly simple. Either use AMD or CommonJS to include the library and use the provided methods.
 
@@ -73,9 +76,7 @@ bar.bar.foobar = 2;
 
 ```
 
-
-
-###Expected results:
+Expected results:
 
 ```
 foo === {
@@ -92,11 +93,12 @@ bar === {
 ```
 
 
-##API Details
+API Details
+-----------
 
 Both clone and deep have some extended functionality for more specific usecases.
 
-###merge(target, source, [staticMerge = false, objectMap, proto = false, shadow = false])
+### merge(target, source, [staticMerge = false, objectMap, proto = false, shadow = false])
 
 Parameters:
 
@@ -107,7 +109,7 @@ Parameters:
 * proto - Enumerate prototype keys. Useful for custom instances and getters when converting to an object
 * shadow - Also enumerate keys which are marked `enumerate: false`
 
-###clone(source, [staticClone = true, objectMap, proto = false, shadow = false])
+### clone(source, [staticClone = true, objectMap, proto = false, shadow = false])
 
 Parameters
 
