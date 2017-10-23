@@ -118,3 +118,11 @@ Parameters
 * objectMap - Convert `custom type`->`primary type`. E.g. `{ 'MyFancyType': 'Object' }` There is no custom object support as of now, but you can specify conversion from instances to objecs or arrays.
 * proto - Enumerate prototype keys. Useful for custom instances and getters when converting to an object
 * shadow - Also enumerate keys which are marked `enumerate: false`
+
+
+License
+-------
+
+Short version: MIT
+
+Long version: Read the LICENSE -file
