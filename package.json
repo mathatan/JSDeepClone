@@ -2,7 +2,7 @@
   "name": "jsdeepclone",
   "version": "1.0.0",
   "description": "Library for handling deep clone and merge in javascript.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./build.sh"

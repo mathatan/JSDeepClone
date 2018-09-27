@@ -2,7 +2,8 @@ const deepMethods = {
     // Object map can be used to replace certain instances with default JS type handling for clone and merge.
     // If key is defined with a falsy value `Object` will be used by default.
     getType(item, objectMap) {
-        let constructor = typeof item === 'undefined' ? 'undefined' : item.constructor.toString().slice(9);
+        let constructor =
+            item === null ? 'null' : typeof item === 'undefined' ? 'undefined' : item.constructor.toString().slice(9);
 
         constructor = constructor.slice(0, constructor.indexOf('('));
 

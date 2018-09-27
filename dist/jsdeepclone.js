@@ -61,7 +61,7 @@
             }
             var deepMethods = {
                 getType: function getType(item, objectMap) {
-                    var constructor = typeof item === "undefined" ? "undefined" : item.constructor.toString().slice(9);
+                    var constructor = item === null ? "null" : typeof item === "undefined" ? "undefined" : item.constructor.toString().slice(9);
                     constructor = constructor.slice(0, constructor.indexOf("("));
                     if ((typeof objectMap === "undefined" ? "undefined" : _typeof(objectMap)) === "object" && objectMap.hasOwnProperty(constructor)) {
                         constructor = objectMap[constructor] || "Object";
