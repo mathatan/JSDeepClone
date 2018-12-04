@@ -181,6 +181,7 @@
                     var objectMap = arguments[2];
                     var proto = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
                     var shadow = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+                    var readonly = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
                     if (!deepMethods.referenced(source)) {
                         return source;
                     }
@@ -202,17 +203,20 @@
                                 enumerable = descriptor.enumerable;
                             }
                             var properties = {
-                                writable: writable,
+                                writable: writable && !readonly,
                                 configurable: configurable,
                                 enumerable: enumerable
                             };
                             if (staticClone) {
-                                properties.value = deepMethods.referenced(value) ? deepMethods.clone(value, staticClone, objectMap, proto, shadow) : value;
+                                properties.value = deepMethods.referenced(value) ? deepMethods.clone(value, staticClone, objectMap, proto, shadow, readonly) : value;
                             } else {
                                 properties.get = property.get;
                                 properties.set = property.set;
                             }
                             Object.defineProperty(target, property, properties);
+                        }
+                        if (readonly) {
+                            Object.freeze(target);
                         }
                         break;
 
@@ -228,7 +232,10 @@
                       case "Array":
                         target = new (eval(sourceType))(source.length);
                         for (var _i2 = 0, _iLen = source.length; _i2 < _iLen; _i2++) {
-                            target[_i2] = deepMethods.referenced(source[_i2]) ? deepMethods.clone(source[_i2], staticClone, objectMap, proto, shadow) : source[_i2];
+                            target[_i2] = deepMethods.referenced(source[_i2]) ? deepMethods.clone(source[_i2], staticClone, objectMap, proto, shadow, readonly) : source[_i2];
+                        }
+                        if (sourceType === "Array" && readonly) {
+                            Object.freeze(target);
                         }
                         break;
 
@@ -242,6 +249,9 @@
                       case "TypeError":
                       case "URIError":
                         target = new (eval(sourceType))(source);
+                        if (readonly) {
+                            Object.freeze(target);
+                        }
                         break;
 
                       default:

@@ -159,7 +159,7 @@ const deepMethods = {
 
         return response;
     },
-    clone(source, staticClone = true, objectMap, proto = false, shadow = false) {
+    clone(source, staticClone = true, objectMap, proto = false, shadow = false, readonly = false) {
         if (!deepMethods.referenced(source)) {
             return source;
         }
@@ -192,14 +192,14 @@ const deepMethods = {
                     }
 
                     const properties = {
-                        writable,
+                        writable: writable && !readonly,
                         configurable,
                         enumerable
                     };
 
                     if (staticClone) {
                         properties.value = deepMethods.referenced(value)
-                            ? deepMethods.clone(value, staticClone, objectMap, proto, shadow)
+                            ? deepMethods.clone(value, staticClone, objectMap, proto, shadow, readonly)
                             : value;
                     } else {
                         properties.get = property.get;
@@ -208,6 +208,11 @@ const deepMethods = {
 
                     Object.defineProperty(target, property, properties);
                 }
+
+                if (readonly) {
+                    Object.freeze(target);
+                }
+
                 break;
             case 'Int8Array':
             case 'Uint8Array':
@@ -222,9 +227,14 @@ const deepMethods = {
                 target = new (eval(sourceType))(source.length);
                 for (let i = 0, iLen = source.length; i < iLen; i++) {
                     target[i] = deepMethods.referenced(source[i])
-                        ? deepMethods.clone(source[i], staticClone, objectMap, proto, shadow)
+                        ? deepMethods.clone(source[i], staticClone, objectMap, proto, shadow, readonly)
                         : source[i];
                 }
+
+                if (sourceType === 'Array' && readonly) {
+                    Object.freeze(target);
+                }
+                
                 break;
             case 'RegExp':
             case 'Error':
@@ -236,6 +246,11 @@ const deepMethods = {
             case 'TypeError':
             case 'URIError':
                 target = new (eval(sourceType))(source);
+
+                if (readonly) {
+                    Object.freeze(target);
+                }
+                
                 break;
             default:
                 target = source;
