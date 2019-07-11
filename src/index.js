@@ -111,8 +111,12 @@ const deepMethods = {
                     } else if (staticMerge) {
                         properties.value = value;
                     } else {
-                        properties.get = property.get;
-                        properties.set = property.set;
+                        if (typeof property.get !== 'undefined') {
+                            properties.get = property.get;
+                        }
+                        if (typeof property.set !== 'undefined') {
+                            properties.set = property.set;
+                        }
                     }
 
                     Object.defineProperty(response, property, properties);
